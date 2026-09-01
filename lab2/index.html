@@ -41,6 +41,20 @@
 
     <div id="chart"></div>
     <div id="tooltip" class="tooltip"></div>
+
+    <p>
+        Visualization Justification:
+    </p>
+
+    <p>
+        Visual-channel mappings: Population is mapped to the x-position, while temperature is mapped to the y-position. Color represents the city’s region (North, South, West, or East), and circle size represents development level, with larger circles indicating higher development levels. Hovering over a point displays the city name together with its population, development level, and region.
+    </p>
+    <p>
+        Rationale for the mappings: Population and temperature are quantitative variables, so positioning them along continuous axes allows viewers to compare values and identify relationships accurately. Region is categorical, making distinct colors appropriate for separating groups without implying an order. Development level is ordinal (Low, Medium, High), so increasing circle size provides a natural visual representation of increasing development.
+    </p>
+    <p>
+        What viewers can notice: The visualization is intended to help viewers examine the relationship between population and temperature while also seeing how this relationship varies across regions and development levels. For example, the plotted cities suggest that more highly populated cities tend to appear at lower temperatures, while lower-population cities are more concentrated at higher temperatures. The regional colors also reveal clustering patterns, and the different circle sizes allow viewers to compare development levels within these patterns.
+    </p>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
