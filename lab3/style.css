@@ -1,0 +1,45 @@
+#data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#data-table th,
+#data-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#data-table th {
+    background: #f1f1f1;
+    cursor: pointer;
+}
+
+#data-table th:hover,
+#data-table th:focus {
+    background: #ddd;
+    outline: 2px solid #333;
+    outline-offset: -2px;
+}
+
+#data-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.dataset-details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 16px;
+}
+
+.dataset-details dt {
+    font-weight: bold;
+}
+
+.dataset-details dd {
+    margin: 0;
+}
