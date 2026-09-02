@@ -1,27 +1,61 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <title>Lab 3</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3 - Web Data Acquisition</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
 
-    <h1>Lab 3</h1>
+    <nav class="lab-nav" aria-label="Lab navigation">
+        <a href="../lab1/index.html">Lab 1</a>
+        <a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html" aria-current="page">Lab 3</a>
+        <a href="../lab4/index.html">Lab 4</a>
+        <a href="../lab5/index.html">Lab 5</a>
+        <a href="../lab6/index.html">Lab 6</a>
+        <a href="../lab7/index.html">Lab 7</a>
+        <a href="../lab8/index.html">Lab 8</a>
+        <a href="../lab9/index.html">Lab 9</a>
+        <a href="../lab10/index.html">Lab 10</a>
+    </nav>
 
-    <p>
-        Lab 3 will be added here.
-    </p>
+    <main>
+        <h2>Lab 3: Web Data Acquisition</h2>
+        <dl class="dataset-details">
+            <dt>Dataset</dt>
+            <dd>Book catalogue records: title, price, and catalogue page.</dd>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+            <dt>Source</dt>
+            <dd><a href="https://books.toscrape.com/">Books to Scrape</a></dd>
 
+            <dt>Method</dt>
+            <dd>HTML scraping with Python, requests, and BeautifulSoup.</dd>
+
+            <dt>Records collected</dt>
+            <dd id="record-count">Loading…</dd>
+        </dl>
+
+        <p>The table is sortable: click a column heading to change its order.</p>
+        <p id="table-status" role="status">Loading data…</p>
+
+        <div class="table-wrapper">
+            <table id="data-table">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <p><a href="../index.html">Back to home</a></p>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="lab3.js"></script>
 </body>
-
 </html>
