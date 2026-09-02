@@ -26,7 +26,6 @@ def main():
     table_path = DATA_DIRECTORY / "lab3_data.csv"
     completed_pages = set()
 
-    # Resume an interrupted run without repeating pages already collected.
     if table_path.exists():
         existing_data = pd.read_csv(table_path)
         if set(existing_data.columns) == {"title", "price", "page"}:
@@ -69,7 +68,6 @@ def main():
 
         print(f"Collected {len(records)} records")
 
-        # Checkpoint each completed page, so an interrupted run can resume.
         DATA_DIRECTORY.mkdir(exist_ok=True)
         pd.DataFrame(records).to_csv(table_path, index=False)
 
