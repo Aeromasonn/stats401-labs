@@ -17,7 +17,6 @@ def get_json(url: str, params: dict[str, object] | None = None) -> list[dict]:
 
 
 def select_post_fields(posts: list[dict]) -> list[dict[str, object]]:
-    """Keep only the attributes needed for a compact dataset."""
     return [
         {
             "id": post["id"],
@@ -31,7 +30,6 @@ def select_post_fields(posts: list[dict]) -> list[dict[str, object]]:
 def fetch_paginated_records(
     url: str, page_count: int = 10, limit: int = 100, delay_seconds: float = 1
 ) -> list[dict]:
-    """Generic API-pagination pattern for endpoints using page and limit."""
     all_records = []
 
     for page in range(1, page_count + 1):

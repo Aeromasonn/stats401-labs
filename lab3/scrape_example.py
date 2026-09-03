@@ -1,9 +1,3 @@
-"""Tasks 6--10 and 16: scrape five Books to Scrape catalogue pages.
-
-Before running this script with a different source, check its robots.txt and
-terms of service. Do not bypass access restrictions or rate limits.
-"""
-
 from pathlib import Path
 import time
 
