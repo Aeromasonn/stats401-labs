@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <title>Lab 4</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4 - Cleaning Web Data for Visualization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="lab4.css">
 </head>
-
 <body>
-
-    <h1>Lab 4</h1>
-
-    <p>
-        Lab 4 will be added here.
-    </p>
-
-    <a href="../index.html">
-        Back to home
-    </a>
-
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
+    <nav class="lab-nav" aria-label="Lab navigation">
+        <a href="../lab1/index.html">Lab 1</a><a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html">Lab 3</a><a href="../lab4/index.html" aria-current="page">Lab 4</a>
+        <a href="../lab5/index.html">Lab 5</a><a href="../lab6/index.html">Lab 6</a>
+        <a href="../lab7/index.html">Lab 7</a><a href="../lab8/index.html">Lab 8</a>
+        <a href="../lab9/index.html">Lab 9</a><a href="../lab10/index.html">Lab 10</a>
+    </nav>
+    <main>
+        <h2>Lab 4: Cleaning Web Data for Visualization</h2>
+        <p>Data Source: Trump Tweets @ https://www.kaggle.com/datasets/austinreese/trump-tweets?resource=download</p>
+        <p id="chart-status" role="status">Loading processed data…</p>
+        <div id="chart" aria-label="Monthly sentiment chart"></div>
+        <p class="chart-note">Each point represents one month. Its vertical position is the mean model-estimated sentiment score and its size represents mean favorites.</p>
+        <p class="chart-note">Thresholds are binned into the following: <−0.2: Negative; (−0.2,0.2): Neutral; >0.2 Positive.</p>
+        <h3>Analysis: </h3>
+        <p>
+            I used the <code>realdonaldtrump.csv</code> dataset, which contains 43,352 tweets posted by account @realdonaldtrump on Twitter between 2009 and 2020. Duplicate records were removed (found none in data),
+            date fields were parsed, blank mentions and hashtags were kept as a relatively small number of tweets contain the two attributes. The visualizations shows the derived time-based fields
+            of estimated sentiment with the RoBERTa sentiment model. The model's output is treated as a model-generated estimated of the tweet sentiments (and may deviate from the ground truth as
+            the corresponding labels are not available). This chart shows the monthly average sentiment on vertical axis, while the circle size shows mean favorites. This makes it easy to compare
+            changes in estimated sentiment over time with monthly aggregation. Overall, the tweets show a zig-zag, yet generally stable sentiment of neutral and neutral-positive across the years.
+        </p>
+        <p>
+            As certain events occur, the account's publicity siginificantly improves in 2016, as shown by the increasing size of circles representing Mean Favorites.
+            It can also be shown that since 2017, the flucutations of average sentiment reduces compared to previous years, resting mostly among values near 0.
+            Furthermore, it is worth noting that for tweets before 2012, the monthly total tweets were significantly less. Therefore, statistical conclusions should be more carefully drawn for those 
+            time periods.
+        </p>
+    </main>
+    <p><a href="../index.html">Back to home</a></p>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="lab4.js"></script>
 </body>
-
 </html>

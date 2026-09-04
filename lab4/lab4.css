@@ -1,0 +1,13 @@
+#chart { position: relative; max-width: 920px; }
+#chart svg { display: block; width: 100%; height: auto; }
+main p { line-height: 1.6; }
+.grid line { stroke: #d9d9d9; stroke-dasharray: 3 3; }
+.grid path { display: none; }
+.sentiment-line { fill: none; stroke: #1f5f8b; stroke-width: 2.5; }
+.month-point { fill-opacity: 0.68; stroke: #334155; cursor: crosshair; }
+.month-point:hover { fill-opacity: 1; }
+.axis-label { font-size: 13px; fill: #333; }
+.sentiment-legend text { font-size: 13px; fill: #333; }
+.tooltip { position: absolute; pointer-events: none; opacity: 0; padding: 9px 11px; border-radius: 4px; background: #1e293b; color: #fff; font-size: 13px; line-height: 1.45; }
+.tooltip.visible { opacity: 1; }
+.chart-note { color: #555; }
