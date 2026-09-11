@@ -3,25 +3,149 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 5</title>
+    <title>Lab 5 - Interactive Network Visualization</title>
 
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="lab5.css?v=station-legends-4">
 </head>
 
 <body>
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
 
-    <h1>Lab 5</h1>
+    <nav class="lab-nav" aria-label="Lab navigation">
+        <a href="../lab1/index.html">Lab 1</a>
+        <a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html">Lab 3</a>
+        <a href="../lab4/index.html">Lab 4</a>
+        <a href="../lab5/index.html" aria-current="page">Lab 5</a>
+        <a href="../lab6/index.html">Lab 6</a>
+        <a href="../lab7/index.html">Lab 7</a>
+        <a href="../lab8/index.html">Lab 8</a>
+        <a href="../lab9/index.html">Lab 9</a>
+        <a href="../lab10/index.html">Lab 10</a>
+    </nav>
 
-    <p>
-        Lab 5 will be added here.
-    </p>
+    <main>
+        <h2>Urban Transit Network</h2>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+        <p>
+            Each symbol represents one station. Symbol size shows
+            <code>daily_passengers</code>, symbol color shows <code>district</code>,
+            line width shows <code>travel_time_min</code>, and line color shows
+            <code>route_type</code>. Node shape shows <code>station_type</code>:
+            a circle is Local, a triangle is Transfer, and a square is Terminal.
+        </p>
 
+        <div id="chart"></div>
+
+        <div class="station-type-legend" aria-label="Station type legend">
+            <span><i class="legend-symbol local-symbol" aria-hidden="true"></i>Local</span>
+            <span><i class="legend-symbol transfer-symbol" aria-hidden="true"></i>Transfer</span>
+            <span><i class="legend-symbol terminal-symbol" aria-hidden="true"></i>Terminal</span>
+        </div>
+
+        <!-- Changed: show which line color represents each route service. -->
+        <div class="route-type-legend" aria-label="Route type legend">
+            <span><i class="route-line metro-line" aria-hidden="true"></i>Metro</span>
+            <span><i class="route-line express-line" aria-hidden="true"></i>Express</span>
+            <span><i class="route-line shuttle-line" aria-hidden="true"></i>Shuttle</span>
+        </div>
+
+        <h2>Node-Link Design Description</h2>
+
+        <p>
+            Larger stations show heavier passenger use, so busy places stand out
+            quickly. District colors help group stations by area. Plain circles,
+            triangles, and squares distinguish local, transfer, and
+            terminal stations alongside showing the district color. Wider lines make
+            long direct trips easy to notice, while line colors separate Metro,
+            Express, and Shuttle routes. Dragging makes crowded areas easier to
+            read, and hovering highlights a station's direct connections and shows
+            its details.
+        </p>
+
+        <h2>Adjacency Matrix</h2>
+
+        <p>
+            Rows and columns represent stations. Colored cells show direct routes,
+            and darker cells represent longer <code>travel_time_min</code> values.
+        </p>
+
+        <div id="matrix"></div>
+
+        <h2>Matrix Design Description</h2>
+
+        <p>
+            Each row and column is a station in ID order. This makes the long
+            station-to-station chain appear near the diagonal, while cross-links
+            stand away from it. Blue cells show direct connections, and darker
+            cells show longer trips. I kept the matrix simple so the 50-by-50 grid
+            stays readable: it is useful for checking connections and travel time,
+            but it does not show district or station type as clearly as the graph.
+        </p>
+
+        <h2>Network Questions and Findings</h2>
+
+        <ul class="findings-list">
+            <li>
+                <strong>1. Which stations appear central?</strong>
+                <em>Partially — both views.</em> Link count in the graph and
+                non-empty cells in a matrix row or column indicate degree, but
+                neither view calculates a formal centrality measure. There is no
+                dominant hub: Stations 4, 7, 10, 13, 16, 18, 21, 23, 25, 29, 31,
+                33, 34, and 38 have degree three, the maximum.
+            </li>
+            <li>
+                <strong>2. Which districts connect most strongly?</strong>
+                <em>Not easily — node-link if one has to be identified.</em> 
+                District colors make individual memberships visible, but the ID-ordered matrix does not form
+                district blocks. The view therefore suggests mixed cross-district
+                connectivity rather than a visually obvious strongest district
+                pair; finding one would require counting connections.
+            </li>
+            <li>
+                <strong>3. Where are transfer or terminal stations located in the topology?</strong>
+                <em>Well — node-link.</em> Triangles show transfers and squares
+                show terminals, so their positions can be seen without
+                hovering. Both types are spread along the main chain rather than
+                forming one central group; for example, Stations 4 and 7 are
+                terminals, while Station 23 is a transfer station.
+            </li>
+            <li>
+                <strong>4. Which stations have the highest passenger volume?</strong>
+                <em>Well — node-link.</em> Symbol size makes passenger volume
+                immediately visible. Stations 46–50 are the five largest symbols,
+                so they are the highest-volume stations. Specific values need referring
+                to the csv file.
+            </li>
+            <li>
+                <strong>5. Which are the longest direct routes?</strong>
+                <em>Well — both views.</em> The widest edge and darkest matrix
+                cells flag long direct routes. Station 7–31 is longest as it appear to be the thickest
+                minutes, then 18–34 and 29–50 appearing at similarly width levels.
+            </li>
+            <li>
+                <strong>6. Do route types have a spatial pattern?</strong>
+                <em>Partially — node-link.</em> Edge color separates route types,
+                but the force layout's positions are not geography. Colors are
+                interspersed along the main chain and cross-links, so no type has a
+                clear spatial concentration.
+            </li>
+        </ul>
+    </main>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <a href="../index.html">Back to home</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="lab5.js?v=station-shapes-3"></script>
 </body>
 
 </html>
