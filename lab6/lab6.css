@@ -1,0 +1,215 @@
+main p {
+    line-height: 1.6;
+}
+
+.visualization-card {
+    margin: 18px 0 30px;
+    padding: 18px;
+    overflow: hidden;
+    border: 1px solid #d7dde5;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.visualization-card h3 {
+    margin: 0 0 8px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.interaction-hint,
+.breadcrumb,
+.load-status {
+    margin: 0 0 12px;
+    color: #4b5563;
+}
+
+.breadcrumb {
+    font-weight: 700;
+    color: #1f2937;
+}
+
+#population-back {
+    padding: 7px 14px;
+    border: 1px solid #9ca3af;
+    border-radius: 5px;
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+#population-back:disabled {
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.chart-container svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.tree-link {
+    fill: none;
+    stroke: #a3acb9;
+    stroke-width: 1.5;
+}
+
+.tree-node text {
+    font-size: 12px;
+    user-select: none;
+}
+
+.tree-node circle {
+    stroke: #ffffff;
+    stroke-width: 1.5;
+}
+
+.tree-node.is-branch {
+    cursor: pointer;
+}
+
+.population-cell {
+    cursor: default;
+}
+
+.population-cell.is-branch {
+    cursor: pointer;
+}
+
+.population-cell rect,
+.gdp-cell rect {
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+
+.population-cell text,
+.country-label,
+.group-label {
+    pointer-events: none;
+    font-family: Arial, sans-serif;
+}
+
+.population-name {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.population-value {
+    font-size: 13px;
+}
+
+.country-label {
+    font-size: 12px;
+    font-weight: 700;
+    fill: #111827;
+    paint-order: stroke;
+    stroke: rgba(255, 255, 255, 0.9);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+}
+
+.group-outline {
+    fill: none;
+    pointer-events: none;
+}
+
+.continent-outline {
+    stroke: #1f2937;
+    stroke-width: 2.5;
+}
+
+.area-outline {
+    stroke: rgba(255, 255, 255, 0.95);
+    stroke-width: 1.5;
+}
+
+.group-label {
+    font-weight: 700;
+    fill: #111827;
+}
+
+.continent-label {
+    font-size: 14px;
+}
+
+.area-label {
+    font-size: 11px;
+}
+
+.encoding-key,
+.status-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+    margin: 12px 0;
+}
+
+.encoding-key span,
+.status-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-swatch {
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+}
+
+.legend-swatch.increase {
+    background: #4daf70;
+}
+
+.legend-swatch.unchanged {
+    background: #94a3b8;
+}
+
+.legend-swatch.decrease {
+    background: #e76f51;
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 10;
+    max-width: 260px;
+    padding: 8px 10px;
+    border: 1px solid #9ca3af;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.15);
+    font-size: 14px;
+    line-height: 1.45;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tooltip.visible {
+    opacity: 1;
+}
+
+.load-status.error {
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+@media (max-width: 640px) {
+    .visualization-card {
+        padding: 10px;
+    }
+
+    .section-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    #population-back {
+        align-self: flex-start;
+    }
+}

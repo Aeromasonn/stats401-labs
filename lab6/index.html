@@ -3,25 +3,121 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 6</title>
+    <title>Lab 6 - Hierarchical Data Visualization</title>
 
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="lab6.css">
 </head>
 
 <body>
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
 
-    <h1>Lab 6</h1>
+    <nav class="lab-nav" aria-label="Lab navigation">
+        <a href="../lab1/index.html">Lab 1</a>
+        <a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html">Lab 3</a>
+        <a href="../lab4/index.html">Lab 4</a>
+        <a href="../lab5/index.html">Lab 5</a>
+        <a href="../lab6/index.html" aria-current="page">Lab 6</a>
+        <a href="../lab7/index.html">Lab 7</a>
+        <a href="../lab8/index.html">Lab 8</a>
+        <a href="../lab9/index.html">Lab 9</a>
+        <a href="../lab10/index.html">Lab 10</a>
+    </nav>
 
-    <p>
-        Lab 6 will be added here.
-    </p>
+    <main>
+        <h2>Geographic Population Hierarchy</h2>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+        <section class="visualization-card" aria-labelledby="tree-heading">
+            <div class="section-heading">
+                <div>
+                    <h3 id="tree-heading">Collapsible Node-Link Tree</h3>
+                    <p class="interaction-hint">Select a blue node to collapse or expand its descendants.</p>
+                </div>
+            </div>
+            <div id="tree" class="chart-container"></div>
+        </section>
 
+        <section class="visualization-card" aria-labelledby="population-treemap-heading">
+            <div class="section-heading">
+                <div>
+                    <h3 id="population-treemap-heading">Zoomable Population Treemap</h3>
+                    <p class="interaction-hint">Select a group to move down the hierarchy; use Back to move up.</p>
+                </div>
+                <button id="population-back" type="button" disabled>Back</button>
+            </div>
+            <p id="population-path" class="breadcrumb" aria-live="polite">World</p>
+            <div id="population-treemap" class="chart-container"></div>
+        </section>
+
+        <h2>GDP Hierarchy with Two Treemaps</h2>
+
+        <div class="encoding-key" aria-label="GDP encodings">
+            <span><strong>Area:</strong> GDP in billions of U.S. dollars</span>
+            <span><strong>Color:</strong> GDP status</span>
+        </div>
+
+        <div class="status-legend" aria-label="GDP status legend">
+            <span><i class="legend-swatch increase" aria-hidden="true"></i>Increase</span>
+            <span><i class="legend-swatch unchanged" aria-hidden="true"></i>Unchanged</span>
+            <span><i class="legend-swatch decrease" aria-hidden="true"></i>Decrease</span>
+        </div>
+
+        <section class="visualization-card" aria-labelledby="squarify-heading">
+            <h3 id="squarify-heading">Treemap 1: Squarify</h3>
+            <div id="gdp-squarify" class="chart-container"></div>
+        </section>
+
+        <section class="visualization-card" aria-labelledby="slice-dice-heading">
+            <h3 id="slice-dice-heading">Treemap 2: Slice-Dice</h3>
+            <div id="gdp-slice-dice" class="chart-container"></div>
+        </section>
+
+        <section aria-labelledby="design-description-heading">
+            <h2 id="design-description-heading">Visualization Design Description</h2>
+
+            <p>
+                <strong>1. Why these visual channels:</strong>
+                Both visual channels show how geographic locations differ while
+                keeping their hierarchical relationships visible. The node-link
+                tree is especially helpful because it shows how geodemographic
+                information coalesces from cities and regions into countries and
+                continents. The corresponding zoomable treemap presents the same
+                belonging, or set, relationships from a top-down perspective.
+                Rectangle area represents population or GDP, so larger values look
+                larger, while color adds a second encoding channel for continent or
+                GDP status. Together, these choices show both membership and
+                quantitative differences rather than hierarchy alone.
+            </p>
+
+            <p>
+                <strong>2. How segmentation affects appearance and readability:</strong>
+                Squarify emphasizes comparative relationships by producing compact
+                rectangles, making differences in GDP area and labels easier to
+                read. Slice-Dice uses more regular, directional subdivisions, so
+                the geographic hierarchy is easier to follow across levels, but
+                smaller countries can become narrow and harder to identify. In
+                both maps, status color shows whether GDP increased, remained
+                unchanged, or decreased, while tooltips provide exact values when
+                labels do not fit.
+            </p>
+        </section>
+
+        <p id="load-status" class="load-status" role="status" aria-live="polite"></p>
+    </main>
+
+    <div id="tooltip" class="tooltip" role="status"></div>
+
+    <a href="../index.html">Back to home</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="lab6.js"></script>
 </body>
 
 </html>
