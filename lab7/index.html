@@ -1,27 +1,144 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <title>Lab 7</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 7 - Temporal Commercial Network</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="lab7.css?v=6">
 </head>
-
 <body>
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
+    <nav class="lab-nav" aria-label="Lab navigation">
+        <a href="../lab1/index.html">Lab 1</a><a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html">Lab 3</a><a href="../lab4/index.html">Lab 4</a>
+        <a href="../lab5/index.html">Lab 5</a><a href="../lab6/index.html">Lab 6</a>
+        <a href="../lab7/index.html" aria-current="page">Lab 7</a>
+        <a href="../lab8/index.html">Lab 8</a><a href="../lab9/index.html">Lab 9</a>
+        <a href="../lab10/index.html">Lab 10</a>
+        <a href="../Individual_Project/index.html">Individual Project: Critique and Redesign</a>
+        <a href="../Final_Project/index.html">Final Project</a>
+    </nav>
+    <main>
+        <h2 id="page-heading">Commercial Network Over 60 Days</h2>
 
-    <h1>Lab 7</h1>
+        <p>
+            Explore how transactions among twelve companies change from day to day.
+            Node positions remain stable enough to track companies, while size and
+            links update to show current commercial activity.
+        </p>
 
-    <p>
-        Lab 7 will be added here.
-    </p>
+        <section class="visualization-card" aria-labelledby="network-heading">
+            <div class="section-heading">
+                <div>
+                    <h3 id="network-heading">Animated Temporal Network</h3>
+                    <p class="interaction-hint">Play the sequence or drag the slider to inspect one day. Hover over a company or relationship for details; drag nodes to adjust the layout.</p>
+                </div>
+                <div class="current-date" aria-live="polite">
+                    <strong id="day-label">Day 1</strong>
+                    <span id="date-label">Loading…</span>
+                </div>
+            </div>
+            <div class="controls" aria-label="Animation controls">
+                <div class="button-row">
+                    <button id="play" type="button">Play</button>
+                    <button id="pause" type="button">Pause</button>
+                    <button id="reset" type="button">Reset</button>
+                </div>
+                <label for="time-slider">Day <output id="slider-output" for="time-slider">1</output></label>
+                <input id="time-slider" type="range" min="1" max="60" value="1" step="1" disabled>
+            </div>
+            <div id="summary" class="summary-grid" aria-live="polite">
+                <div><span>Active companies</span><strong id="active-companies">—</strong></div>
+                <div><span>Active links</span><strong id="active-links">—</strong></div>
+                <div><span>Transaction value</span><strong id="total-value">—</strong></div>
+                <div><span>Cross-region links</span><strong id="cross-region-links">—</strong></div>
+            </div>
+            <div id="network" class="chart-container" aria-label="Temporal company network"></div>
+            <p id="load-status" class="load-status" role="status" aria-live="polite">Loading Lab 7 data…</p>
+        </section>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+        <section class="visualization-card" aria-labelledby="overview-heading">
+            <h3 id="overview-heading">60-Day Connectivity Overview</h3>
+            <p class="interaction-hint">The overview keeps every day visible for comparison. Select a point or drag across the plot to move the network to that day.</p>
+            <div id="overview" class="chart-container" aria-label="Daily network activity line chart"></div>
+        </section>
 
+        <section class="visualization-card" aria-labelledby="legend-heading">
+            <h3 id="legend-heading">Encoding Guide</h3>
+            <div class="encoding-grid">
+                <div><h4>Companies</h4><p><strong>Fill color:</strong> sector</p><p><strong>Circle size:</strong> current transaction volume</p><p><strong>Opacity:</strong> active or inactive today</p><div id="sector-legend" class="legend-list"></div></div>
+                <div><h4>Relationships</h4><p><strong>Color:</strong> transaction type</p><p><strong>Width:</strong> current transaction value</p><p><strong>Opacity:</strong> transaction count</p><div id="type-legend" class="legend-list"></div></div>
+                <div><h4>Layout</h4><p><strong>Horizontal pull:</strong> company region</p><p><strong>Stable objects:</strong> preserve the mental map between days</p><div id="region-legend" class="legend-list"></div></div>
+            </div>
+        </section>
+
+        <section class="questions" aria-labelledby="questions-heading">
+            <h2 id="questions-heading">Temporal Network Questions and Findings</h2>
+            <ol>
+                <li>
+                    <p>How does overall network connectivity change across the 60 days?</p>
+                    <p>
+                        Overall connectivity increases, although it fluctuates from day to day.
+                        The network begins with three active links and ends with nine, with several
+                        late-period peaks of ten links. As the number of links rises, more companies
+                        also become active. Cross-region links increase from zero on Day 1 and
+                        frequently reach five to seven later in the sequence.
+                    </p>
+                </li>
+                <li>
+                    <p>Which companies become more central or commercially active over time?</p>
+                    <p>
+                        The animation does not show one company with fixed centrality because node
+                        size and connectivity change each day. Lumen Distribution and Cedar Retail
+                        remain active across much of the sequence. Fusion Electronics becomes more
+                        commercially active over time, as shown by its larger node on higher-volume
+                        days, and Ion Systems shows a similar increase during the later period.
+                    </p>
+                </li>
+                <li>
+                    <p>Are there periods when the network consists of relatively separate clusters?</p>
+                    <p>
+                        Yes. On Days 1 and 7, the network consists of three disconnected pairs:
+                        Ion Systems with Lumen Distribution, Cedar Retail with Evergreen Foods,
+                        and Granite Wholesale with Harbor Shipping. Day 4 also remains fragmented,
+                        but its seven links form four separate components rather than three pairs.
+                        These frames show that the network can split into small clusters even while
+                        other days contain more connected structures.
+                    </p>
+                </li>
+                <li>
+                    <p>Which commercial relationships appear, disappear, or become stronger over time?</p>
+                    <p>
+                        Most relationships are intermittent, so their links repeatedly appear and
+                        disappear as the slider moves. Ion Systems–Lumen Distribution,
+                        Cedar Retail–Evergreen Foods, Fusion Electronics–Delta Components, and
+                        Ion Systems–Juniper Stores are among the more persistent pairs, but none
+                        remains active every day. Line width shows that transaction value also
+                        changes when links reappear. Fusion Electronics–Delta Components is often
+                        wider later in the sequence, while Ion Systems–Juniper Stores shows the
+                        clearest increase from narrower early links to wider late links.
+                    </p>
+                </li>
+                <li>
+                    <p>Does the network become more or less cross-regional over time?</p>
+                    <p>
+                        The network becomes more cross-regional overall. Day 1 contains only
+                        within-region pairs, while cross-region links appear on Day 2 and continue
+                        throughout the sequence. The amount still fluctuates, but later frames
+                        commonly show five to seven cross-region links. By Day 60, six of the nine
+                        active links connect companies from different regions.
+                    </p>
+                </li>
+            </ol>
+        </section>
+    </main>
+    <div id="tooltip" class="tooltip" role="tooltip"></div>
+    <a href="../index.html">Back to home</a>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="lab7.js?v=6"></script>
 </body>
-
 </html>

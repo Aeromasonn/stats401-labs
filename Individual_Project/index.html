@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Critique and D3 redesign of the LLM Family Tree visualization.">
+    <title>Visualization Critique and Redesign - LLM Family Tree</title>
+    <style>
+        html,
+        body {
+            background: #fff !important;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css?v=20260920-3">
+</head>
+<body>
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
+
+    <nav class="lab-nav" aria-label="Course navigation">
+        <a href="../lab1/index.html">Lab 1</a>
+        <a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html">Lab 3</a>
+        <a href="../lab4/index.html">Lab 4</a>
+        <a href="../lab5/index.html">Lab 5</a>
+        <a href="../lab6/index.html">Lab 6</a>
+        <a href="../lab7/index.html">Lab 7</a>
+        <a href="../lab8/index.html">Lab 8</a>
+        <a href="../lab9/index.html">Lab 9</a>
+        <a href="../lab10/index.html">Lab 10</a>
+        <a href="index.html" aria-current="page">Individual Project</a>
+        <a href="../Final_Project/index.html">Final Project</a>
+    </nav>
+
+    <main>
+        <h1>Visualization Critique and Redesign</h1>
+        <p class="lead">
+            This project critiques Josh Janes' <em>LLM Family Tree</em> and redesigns its model-lineage data as an
+            interactive chronological swimlane built with D3.js.
+        </p>
+
+        <nav class="project-nav" aria-label="Project sections">
+            <a href="#original">Original</a>
+            <a href="#analysis">Message and audience</a>
+            <a href="#critique">Critique</a>
+            <a href="#redesign">Redesign</a>
+            <a href="#explanation">Design explanation</a>
+            <a href="#references">References</a>
+        </nav>
+
+        <section id="original">
+            <h2>Part 1. Original Visualization</h2>
+            <h3>LLM Family Tree</h3>
+            <figure class="original-figure">
+                <img src="llm-tree-original/llm-tree-banner.gif"
+                     alt="Animated overview of the original LLM Family Tree node-link visualization, with glowing model nodes connected by curved lineage links.">
+                <figcaption>
+                    Original visualization demonstration by Josh Janes. Source:
+                    <a href="https://github.com/josh-janes/llm-tree/blob/main/llm-tree-banner.gif"
+                       target="_blank" rel="noreferrer">LLM Family Tree banner on GitHub</a>.
+                </figcaption>
+            </figure>
+            <p>
+                The visualization presents 107 influential language models and research contributions released from
+                2017 through 2026. Nodes represent models or contributions, links represent curated influence or
+                lineage relationships, organization logos identify developers, and the vertical background provides
+                approximate year references. The accompanying source notes that some relationships involving closed
+                models are inferred from public papers and announcements.
+            </p>
+        </section>
+
+        <section id="analysis">
+            <h2>Part 2. Intended Message, Audience, and Tasks</h2>
+            <dl class="analysis-list">
+                <dt>Intended message</dt>
+                <dd>The development of large language models is a connected history in which later systems build on earlier architectures, training methods, and model families.</dd>
+                <dt>Audience</dt>
+                <dd>Students, researchers, developers, and technically interested readers who want an overview of major LLM developments without reading every cited paper.</dd>
+                <dt>Primary tasks</dt>
+                <dd>Locate a model, identify its predecessors and descendants, compare activity across organizations, recognize influential contributions, and understand when major developments occurred.</dd>
+            </dl>
+        </section>
+
+        <section id="critique">
+            <h2>Part 3. Critique of the Original</h2>
+            <h3>Strengths</h3>
+            <ol>
+                <li><strong>Relationships are central.</strong> The node-link idiom communicates that model development is cumulative rather than a list of unrelated releases. Selecting a node also supports details on demand.</li>
+                <li><strong>The presentation encourages exploration.</strong> Glowing nodes, recognizable logos, animated movement, and citations make individual models engaging and give interested viewers paths to original sources.</li>
+            </ol>
+
+            <h3>Weaknesses and opportunities for improvement</h3>
+            <ol>
+                <li><strong>Persistent links create visual clutter.</strong> Numerous long and crossing curves make it difficult to trace one lineage. Hiding unrelated links until selection would reduce interference.</li>
+                <li><strong>Time is only a background guide.</strong> The free-form layout does not place every node on a consistent time scale, so release intervals and simultaneous activity are difficult to compare. A continuous date axis would make chronological position explicit.</li>
+                <li><strong>Organization and influence are difficult to compare.</strong> Logos identify developers, but they do not establish stable groups, and glowing node areas are hard to judge. Organization lanes, consistent color, and a documented quantitative size scale would make these comparisons clearer.</li>
+            </ol>
+        </section>
+
+        <section id="redesign">
+            <h2>Part 4. D3 Redesign</h2>
+            <p>
+                The redesign uses publication date for horizontal position, organization group for vertical position
+                and color, and direct-descendant count for point size. Select a model to reveal only its incoming and
+                outgoing lineage links. Search and organization filters support focused lookup without changing the
+                underlying data.
+            </p>
+
+            <div class="controls" aria-label="Visualization controls">
+                <label>
+                    <span>Find a model or organization</span>
+                    <input id="search-input" type="search" placeholder="e.g., LLaMA or Anthropic" autocomplete="off">
+                </label>
+                <label>
+                    <span>Organization group</span>
+                    <select id="organization-filter">
+                        <option value="All">All organizations</option>
+                    </select>
+                </label>
+                <label class="check-control">
+                    <input id="label-toggle" type="checkbox">
+                    <span>Show every model label</span>
+                </label>
+                <button id="reset-button" type="button">Reset view</button>
+            </div>
+
+            <div class="encoding-key" aria-label="Visual encoding guide">
+                <div>
+                    <strong>Color: organization group</strong>
+                    <div id="color-legend" class="color-legend"></div>
+                </div>
+                <div>
+                    <strong>Size: number of direct descendants</strong>
+                    <svg id="size-legend" class="size-legend" role="img" aria-label="Point size legend for direct-descendant count"></svg>
+                    <p class="legend-note">A direct descendant is an outgoing connection from a node in the supplied lineage data.</p>
+                </div>
+            </div>
+
+            <div class="viz-layout">
+                <div class="chart-scroller">
+                    <svg id="timeline" role="img" aria-labelledby="timeline-title timeline-desc">
+                        <title id="timeline-title">Timeline of influential language models by organization group</title>
+                        <desc id="timeline-desc">Models are positioned by publication date, grouped into organization lanes, colored by organization, and sized by number of direct descendants. Selecting a model reveals its immediate lineage links.</desc>
+                    </svg>
+                </div>
+
+                <aside id="detail-panel" class="detail-panel" aria-live="polite">
+                    <div class="detail-empty">
+                        <h3>Select a model</h3>
+                        <p>Its description, source, direct-descendant count, predecessors, and descendants will appear here.</p>
+                    </div>
+                </aside>
+            </div>
+            <p id="status-line" class="status-line" role="status"></p>
+        </section>
+
+        <section id="explanation">
+            <h2>Part 5. Explanation of Redesign Decisions</h2>
+
+            <article class="design-decision">
+                <h3>1. From a global node-link graph to organization swimlanes</h3>
+                <p>
+                    I replaced the original free-form node-link arrangement with horizontal swimlanes organized by broad developer groups. In the original, the network structure is visually prominent, but nodes from different organizations occupy positions determined mainly by the graph layout. This makes it difficult to compare when OpenAI, Google and DeepMind, Meta, Anthropic, academic groups, and other developers were active. The many curves also cross large areas of the display and compete with node labels. In the redesign, every model remains a node, but its vertical position has a stable meaning: the organization group associated with its development. Alternating lane backgrounds and labels make the groups easy to scan. Lineage links are hidden in the overview and appear only when a viewer selects a model, so the relationship task is preserved without showing all 153 connections simultaneously. This change directly addresses clutter, unstable grouping, and inefficient organization comparison. The trade-off is that the complete topology is no longer visible at once, but the filtered view makes individual relationships substantially easier to trace.
+                </p>
+            </article>
+
+            <article class="design-decision">
+                <h3>2. Point encodings for organization and direct influence</h3>
+                <p>
+                    I treated each model as a scatterplot point and assigned two documented visual channels to it. Color represents the broad organization group, which duplicates the lane position and helps viewers follow an organization across a dense period. Point area represents the number of direct descendants in the supplied lineage graph: the count of outgoing links from that model or research contribution. A square-root radius scale maps zero descendants to the smallest circles and the dataset maximum of twenty descendants to the largest circles. The size legend shows reference values of zero, five, and twenty so that viewers can interpret area instead of assuming that a large point means parameter count, training compute, popularity, or benchmark performance. This encoding makes highly connected contributions such as Transformers and GPT-3 visually salient while retaining smaller nodes for less-connected releases. It addresses the original visualization's ambiguous glowing node sizes and indirect organization coding. Direct-descendant count is still source-dependent and does not measure total historical importance, so the legend and detail panel state the definition explicitly rather than presenting size as an objective impact score.
+                </p>
+            </article>
+
+            <article class="design-decision">
+                <h3>3. Publication time as a primary quantitative attribute</h3>
+                <p>
+                    I made publication date the horizontal position of every point on one continuous time scale from 2017 through 2026. The original includes year guides, but its graph layout prioritizes network geometry, so horizontal or vertical distance between nodes does not consistently represent elapsed time. As a result, viewers can recognize a broad sequence yet struggle to compare release intervals, identify crowded periods, or see whether organizations were active concurrently. In the redesign, annual gridlines and labels provide a shared reference across every swimlane. Models released close together appear close together, while gaps represent periods with fewer recorded contributions. This supports tasks such as locating the acceleration of releases after 2022, comparing the timing of competing model families, and following a selected lineage across several years. Tooltips and the detail panel preserve the exact source date for lookup. The redesign therefore promotes time from decorative context to an explicit quantitative channel. Its limitation is that publication date records public release timing, not the beginning or duration of research, and the 2017–2026 extent reflects the supplied dataset rather than a complete history of language modeling.
+                </p>
+            </article>
+
+            <article class="design-decision">
+                <h3>4. Original versus redesign</h3>
+                <p>
+                    The original is more effective as an expressive picture of a large, interconnected research ecosystem. Its persistent curves, logos, animation, and glowing nodes immediately communicate complexity and invite open-ended exploration. The redesign is more effective for specific comparison tasks. A viewer can use horizontal position to compare publication dates, vertical lanes and color to compare organization activity, and point area to identify nodes with many direct descendants. Selecting one point reveals only its immediate incoming and outgoing links, while search, filtering, and direct labels make a known model easier to locate. These changes reduce the visual effort required to answer when a model appeared, who developed it, and which recorded contributions connect to it. The redesign does sacrifice the original's dramatic appearance and its immediate overview of the full network. Broad organization categories also simplify collaborations, and direct-descendant counts depend on the source's curated and partly inferred links. On smaller screens, the fixed-width timeline requires horizontal scrolling. The redesign should therefore be understood as a task-focused complement to the original rather than a claim that one layout is universally superior.
+                </p>
+            </article>
+        </section>
+
+        <section id="references">
+            <h2>Data Sources and References</h2>
+            <ol class="references">
+                <li>Janes, J. <a href="https://jjanes.ca/llm-tree/" target="_blank" rel="noreferrer"><em>LLM Family Tree</em></a>. Original interactive visualization.</li>
+                <li>Janes, J. <a href="https://github.com/josh-janes/llm-tree" target="_blank" rel="noreferrer">LLM Family Tree source repository and graph data</a>.</li>
+                <li>Janes, J. <a href="https://github.com/josh-janes/llm-tree/blob/main/llm-tree-banner.gif" target="_blank" rel="noreferrer">Original visualization demonstration GIF</a>.</li>
+            </ol>
+            <p class="limitation">
+                The organization groups and direct-descendant counts are derived from the source graph for this redesign.
+                Lineage links represent the source author's curated interpretation and may include inferred relationships.
+            </p>
+        </section>
+    </main>
+
+    <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+
+    <footer>
+        <a href="../index.html">Back to home</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="main.js"></script>
+</body>
+</html>
