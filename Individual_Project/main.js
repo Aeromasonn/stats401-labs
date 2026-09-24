@@ -1,4 +1,9 @@
 const DATA_PATH = "data/graph.json";
+const pageParams = new URLSearchParams(window.location.search);
+
+if (pageParams.get("capture") === "redesign") {
+    document.documentElement.classList.add("capture-redesign");
+}
 
 const laneOrder = [
     "OpenAI",
@@ -39,6 +44,7 @@ const landmarks = new Set([
 const parseDate = d3.timeParse("%Y-%m-%d");
 const formatDate = d3.timeFormat("%B %d, %Y");
 const formatYear = d3.timeFormat("%Y");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const svg = d3.select("#timeline");
 const tooltip = d3.select("#tooltip");
@@ -104,12 +110,24 @@ function assignTracks(laneNodes, xScale) {
 }
 
 function connectionIds(id) {
-    const ids = new Set([id]);
+    return connectionSets(id).all;
+}
+
+function connectionSets(id) {
+    const incoming = new Set();
+    const outgoing = new Set();
+    const all = new Set([id]);
     links.forEach(link => {
-        if (link.source.id === id) ids.add(link.target.id);
-        if (link.target.id === id) ids.add(link.source.id);
+        if (link.source.id === id) {
+            outgoing.add(link.target.id);
+            all.add(link.target.id);
+        }
+        if (link.target.id === id) {
+            incoming.add(link.source.id);
+            all.add(link.source.id);
+        }
     });
-    return ids;
+    return { incoming, outgoing, all };
 }
 
 function connectedNodes(id, direction) {
@@ -120,8 +138,15 @@ function connectedNodes(id, direction) {
 }
 
 function linkPath(link) {
-    const midpoint = link.source.x + (link.target.x - link.source.x) * 0.5;
-    return `M${link.source.x},${link.source.y} C${midpoint},${link.source.y} ${midpoint},${link.target.y} ${link.target.x},${link.target.y}`;
+    const direction = link.target.x >= link.source.x ? 1 : -1;
+    const startX = link.source.x + direction * (link.source.radius + 2);
+    const endX = link.target.x - direction * (link.target.radius + 6);
+    const midpoint = startX + (endX - startX) * 0.5;
+    return `M${startX},${link.source.y} C${midpoint},${link.source.y} ${midpoint},${link.target.y} ${endX},${link.target.y}`;
+}
+
+function markerId(lane) {
+    return `arrow-${lane.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 }
 
 function descendantLabel(count) {
@@ -164,8 +189,11 @@ function updateDetail(node) {
     });
 }
 
-function applyVisualState() {
-    const selectedConnections = selectedId ? connectionIds(selectedId) : new Set();
+function applyVisualState({ animateLineage = false } = {}) {
+    const selectedSets = selectedId
+        ? connectionSets(selectedId)
+        : { incoming: new Set(), outgoing: new Set(), all: new Set() };
+    const selectedConnections = selectedSets.all;
     const query = searchTerm.trim().toLowerCase();
 
     const matchesFilter = node => {
@@ -177,8 +205,34 @@ function applyVisualState() {
 
     const visibleMatches = nodes.filter(matchesFilter);
 
-    svg.selectAll(".model-node")
+    const selectedLinks = selectedId
+        ? links
+            .filter(link => link.source.id === selectedId || link.target.id === selectedId)
+            .sort((a, b) => {
+                const aGroup = a.target.id === selectedId ? 0 : 1;
+                const bGroup = b.target.id === selectedId ? 0 : 1;
+                return d3.ascending(aGroup, bGroup)
+                    || d3.ascending(a.target.dateObj, b.target.dateObj);
+            })
+        : [];
+    const linkOrder = new Map(selectedLinks.map((link, index) => [link, index]));
+    const descendantDelay = new Map(
+        selectedLinks
+            .filter(link => link.source.id === selectedId)
+            .map(link => [link.target.id, 520 + linkOrder.get(link) * 140])
+    );
+
+    const nodeSelection = svg.selectAll(".model-node");
+    if (animateLineage && !prefersReducedMotion) {
+        nodeSelection.classed("direct-descendant", false);
+        svg.node().getBoundingClientRect();
+    }
+
+    nodeSelection
         .classed("selected", d => d.id === selectedId)
+        .classed("lineage-related", d => selectedConnections.has(d.id))
+        .classed("direct-descendant", d => selectedSets.outgoing.has(d.id))
+        .style("--pulse-delay", d => `${descendantDelay.get(d.id) || 0}ms`)
         .attr("opacity", d => {
             if (!matchesFilter(d)) return 0.1;
             if (selectedId && !selectedConnections.has(d.id)) return 0.22;
@@ -193,20 +247,43 @@ function applyVisualState() {
         })
         .attr("opacity", d => matchesFilter(d) ? 1 : 0.12);
 
-    svg.selectAll(".lineage-link")
-        .attr("opacity", d => selectedId && (d.source.id === selectedId || d.target.id === selectedId) ? 0.72 : 0)
-        .attr("stroke", d => laneColors.get(d.source.lane));
+    const linkSelection = svg.selectAll(".lineage-link")
+        .interrupt()
+        .attr("stroke", d => laneColors.get(d.source.lane))
+        .attr("stroke-dasharray", null)
+        .attr("stroke-dashoffset", 0)
+        .attr("opacity", d => selectedId && linkOrder.has(d) && (!animateLineage || prefersReducedMotion) ? 0.82 : 0);
 
-    const countText = visibleMatches.length === nodes.length
-        ? `Showing all ${nodes.length} models. Select a point to reveal its direct lineage links.`
-        : `Showing ${visibleMatches.length} of ${nodes.length} models after filtering.`;
+    if (selectedId && animateLineage && !prefersReducedMotion) {
+        linkSelection
+            .filter(d => linkOrder.has(d))
+            .each(function (d) {
+                const length = this.getTotalLength();
+                d3.select(this)
+                    .attr("opacity", 0.82)
+                    .attr("stroke-dasharray", `${length} ${length}`)
+                    .attr("stroke-dashoffset", length)
+                    .transition()
+                    .delay(linkOrder.get(d) * 140)
+                    .duration(620)
+                    .ease(d3.easeCubicOut)
+                    .attr("stroke-dashoffset", 0);
+            });
+    }
+
+    const selectedNode = selectedId ? nodeById.get(selectedId) : null;
+    const countText = selectedNode
+        ? `Showing ${selectedNode.name}'s lineage across time and developer lanes: ${selectedSets.incoming.size} direct predecessor${selectedSets.incoming.size === 1 ? "" : "s"} and ${selectedSets.outgoing.size} direct descendant${selectedSets.outgoing.size === 1 ? "" : "s"}.`
+        : visibleMatches.length === nodes.length
+            ? `Showing all ${nodes.length} models. Select a point to animate its directed lineage through time.`
+            : `Showing ${visibleMatches.length} of ${nodes.length} models after filtering.`;
     statusLine.text(countText);
 }
 
 function selectNode(id) {
     selectedId = id;
     updateDetail(nodeById.get(id));
-    applyVisualState();
+    applyVisualState({ animateLineage: true });
 }
 
 function resetView() {
@@ -283,6 +360,22 @@ function render(data) {
 
     svg.attr("viewBox", `0 0 ${width} ${height}`);
 
+    const defs = svg.append("defs");
+    const markers = defs.selectAll("marker")
+        .data(laneOrder)
+        .join("marker")
+        .attr("id", d => markerId(d))
+        .attr("viewBox", "0 -4 8 8")
+        .attr("refX", 7)
+        .attr("refY", 0)
+        .attr("markerWidth", 7)
+        .attr("markerHeight", 7)
+        .attr("orient", "auto");
+
+    markers.append("path")
+        .attr("d", "M0,-4L8,0L0,4Z")
+        .attr("fill", d => laneColors.get(d));
+
     const x = d3.scaleTime()
         .domain([
             d3.timeMonth.offset(d3.min(nodes, d => d.dateObj), -4),
@@ -348,7 +441,9 @@ function render(data) {
         .data(links)
         .join("path")
         .attr("class", "lineage-link")
-        .attr("d", linkPath);
+        .attr("d", linkPath)
+        .attr("opacity", 0)
+        .attr("marker-end", d => `url(#${markerId(d.source.lane)})`);
 
     const nodeGroups = plot.append("g")
         .attr("class", "nodes")
@@ -420,7 +515,13 @@ function render(data) {
     });
 
     d3.select("#reset-button").on("click", resetView);
-    applyVisualState();
+
+    const requestedFocus = pageParams.get("focus");
+    if (requestedFocus && nodeById.has(requestedFocus)) {
+        selectNode(requestedFocus);
+    } else {
+        applyVisualState();
+    }
 }
 
 d3.json(DATA_PATH)

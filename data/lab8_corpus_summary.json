@@ -1,0 +1,1035 @@
+{
+  "title": "Bulletin of Duke Kunshan University Undergraduate Instruction",
+  "academic_year": "2021-2022",
+  "source": "https://dku-web-admissions.s3.cn-north-1.amazonaws.com.cn/dkumain/files/V2021-22_DKU_UG_Bulletin.pdf",
+  "accessed": "2026-09-23",
+  "raw_passages": 4550,
+  "clean_passages": 1335,
+  "average_words": 68.0,
+  "formal_sections": 183,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "umap": {
+    "n_neighbors": 15,
+    "min_dist": 0.15,
+    "metric": "cosine",
+    "random_state": 401
+  },
+  "clustering": {
+    "method": "KMeans",
+    "clusters": 8,
+    "random_state": 401
+  },
+  "top_terms": [
+    {
+      "term": "students",
+      "score": 0.03579
+    },
+    {
+      "term": "course",
+      "score": 0.03473
+    },
+    {
+      "term": "credits",
+      "score": 0.018
+    },
+    {
+      "term": "chinese",
+      "score": 0.01734
+    },
+    {
+      "term": "courses",
+      "score": 0.01605
+    },
+    {
+      "term": "university",
+      "score": 0.01601
+    },
+    {
+      "term": "student",
+      "score": 0.01585
+    },
+    {
+      "term": "duke",
+      "score": 0.01525
+    },
+    {
+      "term": "credit",
+      "score": 0.01476
+    },
+    {
+      "term": "world",
+      "score": 0.01418
+    },
+    {
+      "term": "china",
+      "score": 0.01414
+    },
+    {
+      "term": "social",
+      "score": 0.014
+    },
+    {
+      "term": "academic",
+      "score": 0.01376
+    },
+    {
+      "term": "term",
+      "score": 0.01304
+    },
+    {
+      "term": "political",
+      "score": 0.01228
+    }
+  ],
+  "section_counts": [
+    {
+      "section": "Courses with Course Subject: History (HIST)",
+      "count": 73,
+      "average_words": 70.7
+    },
+    {
+      "section": "Courses with Course Subject: Media and Arts (MEDIART)",
+      "count": 43,
+      "average_words": 84.8
+    },
+    {
+      "section": "Courses with Course Subject: Political Science (POLSCI)",
+      "count": 41,
+      "average_words": 70.6
+    },
+    {
+      "section": "Courses with Course Subject: Public Policy (PUBPOL)",
+      "count": 41,
+      "average_words": 62.8
+    },
+    {
+      "section": "Degree Requirements",
+      "count": 37,
+      "average_words": 72.7
+    },
+    {
+      "section": "Courses with Course Subject: Literature (LIT)",
+      "count": 37,
+      "average_words": 79.9
+    },
+    {
+      "section": "Courses with Course Subject: Biology (BIOL)",
+      "count": 34,
+      "average_words": 64.6
+    },
+    {
+      "section": "Courses with Course Subject: Chinese (CHINESE)",
+      "count": 32,
+      "average_words": 63.8
+    },
+    {
+      "section": "Courses with Course Subject: Economics (ECON)",
+      "count": 28,
+      "average_words": 55.9
+    },
+    {
+      "section": "Courses with Course Subject: Physical Education (PHYSEDU)",
+      "count": 28,
+      "average_words": 57.6
+    },
+    {
+      "section": "Courses with Course Subject: Mathematics (MATH)",
+      "count": 27,
+      "average_words": 48.6
+    },
+    {
+      "section": "Courses with Course Subject: Cultural Anthropology (CULANTH)",
+      "count": 24,
+      "average_words": 83.5
+    },
+    {
+      "section": "Grading and Grade Requirements",
+      "count": 22,
+      "average_words": 100.7
+    },
+    {
+      "section": "Courses with Course Subject: Physics (PHYS)",
+      "count": 22,
+      "average_words": 56.7
+    },
+    {
+      "section": "Undergraduate Course Load",
+      "count": 21,
+      "average_words": 67.9
+    },
+    {
+      "section": "Estimated Expenses",
+      "count": 20,
+      "average_words": 47.3
+    },
+    {
+      "section": "Office of Global Education and Study Away",
+      "count": 20,
+      "average_words": 76.8
+    },
+    {
+      "section": "Courses with Course Subject: Computer Science (COMPSCI)",
+      "count": 20,
+      "average_words": 42.7
+    },
+    {
+      "section": "Courses with Course Subject: Environment (ENVIR)",
+      "count": 19,
+      "average_words": 56.2
+    },
+    {
+      "section": "Courses with Course Subject: Global Cultural Studies (GCULS)",
+      "count": 19,
+      "average_words": 92.2
+    },
+    {
+      "section": "Courses with Course Subject: Philosophy (PHIL)",
+      "count": 19,
+      "average_words": 89.3
+    },
+    {
+      "section": "Courses with Course Subject: Statistics (STATS)",
+      "count": 18,
+      "average_words": 41.4
+    },
+    {
+      "section": "Entrance Credit and Placement",
+      "count": 17,
+      "average_words": 70.9
+    },
+    {
+      "section": "Courses with Course Subject: Global Health (GLHLTH)",
+      "count": 16,
+      "average_words": 101.1
+    },
+    {
+      "section": "Courses with Course Subject: Religious Studies (RELIG)",
+      "count": 16,
+      "average_words": 81.0
+    },
+    {
+      "section": "Courses with Course Subject: Chemistry (CHEM)",
+      "count": 15,
+      "average_words": 61.9
+    },
+    {
+      "section": "Courses with Course Subject: Sociology (SOCIOL)",
+      "count": 15,
+      "average_words": 65.5
+    },
+    {
+      "section": "Courses with Course Subject: Cultures and Movements (CULMOVE)",
+      "count": 14,
+      "average_words": 75.1
+    },
+    {
+      "section": "of 2022-2024",
+      "count": 13,
+      "average_words": 79.2
+    },
+    {
+      "section": "Career Services",
+      "count": 13,
+      "average_words": 36.9
+    },
+    {
+      "section": "Courses with Course Subject: Ethics and Leadership (ETHLDR)",
+      "count": 13,
+      "average_words": 97.1
+    },
+    {
+      "section": "Courses with Course Subject: Social Science (SOSC)",
+      "count": 13,
+      "average_words": 63.8
+    },
+    {
+      "section": "Courses with Course Subject: Written and Oral Communication (WOC)",
+      "count": 13,
+      "average_words": 75.8
+    },
+    {
+      "section": "Animating Principles",
+      "count": 12,
+      "average_words": 20.5
+    },
+    {
+      "section": "Refund",
+      "count": 12,
+      "average_words": 28.7
+    },
+    {
+      "section": "Changes in Status",
+      "count": 12,
+      "average_words": 108.0
+    },
+    {
+      "section": "Courses with Course Subject: Behavior Science (BEHAVSCI)",
+      "count": 12,
+      "average_words": 62.3
+    },
+    {
+      "section": "Courses with Course Subject: Material Science (MATSCI)",
+      "count": 11,
+      "average_words": 56.2
+    },
+    {
+      "section": "Part 11: Academic Calendar 2021-22",
+      "count": 11,
+      "average_words": 64.6
+    },
+    {
+      "section": "Transfer of Work Taken Elsewhere",
+      "count": 10,
+      "average_words": 82.3
+    },
+    {
+      "section": "2025 and Beyond",
+      "count": 10,
+      "average_words": 75.7
+    },
+    {
+      "section": "Global China Studies / Chinese History",
+      "count": 10,
+      "average_words": 16.1
+    },
+    {
+      "section": "Courses with Course Subject: Chinese Society and Culture (CHSC)",
+      "count": 9,
+      "average_words": 87.4
+    },
+    {
+      "section": "Courses with Course Subject: Global China Studies (GCHINA)",
+      "count": 9,
+      "average_words": 87.4
+    },
+    {
+      "section": "Partners",
+      "count": 8,
+      "average_words": 63.1
+    },
+    {
+      "section": "Key Components",
+      "count": 8,
+      "average_words": 68.2
+    },
+    {
+      "section": "Cultures and Movements / World History",
+      "count": 8,
+      "average_words": 18.0
+    },
+    {
+      "section": "Molecular Bioscience with Tracks in Biogeochemistry, Biophysics, Cell and Molecular Biology, Genetics and Genomics",
+      "count": 8,
+      "average_words": 81.8
+    },
+    {
+      "section": "Courses with Course Subject: English for Academic Purposes (EAP)",
+      "count": 8,
+      "average_words": 87.1
+    },
+    {
+      "section": "Courses with Course Subject: Political Economy (POLECON)",
+      "count": 8,
+      "average_words": 84.5
+    },
+    {
+      "section": "Registration",
+      "count": 7,
+      "average_words": 87.7
+    },
+    {
+      "section": "Course Repeat",
+      "count": 7,
+      "average_words": 84.4
+    },
+    {
+      "section": "Progress toward Degree",
+      "count": 7,
+      "average_words": 70.4
+    },
+    {
+      "section": "Grade Review Procedure",
+      "count": 7,
+      "average_words": 73.4
+    },
+    {
+      "section": "Environmental Science with tracks in Biogeochemistry, Biology, Chemistry, and Public Policy",
+      "count": 7,
+      "average_words": 72.9
+    },
+    {
+      "section": "Courses with Course Subject: Information Science (INFOSCI)",
+      "count": 7,
+      "average_words": 91.1
+    },
+    {
+      "section": "Courses with Course Subject: Psychology (PSYCH)",
+      "count": 7,
+      "average_words": 46.4
+    },
+    {
+      "section": "Who We Are",
+      "count": 6,
+      "average_words": 98.0
+    },
+    {
+      "section": "Application Timelines",
+      "count": 6,
+      "average_words": 36.2
+    },
+    {
+      "section": "Academic Integrity",
+      "count": 6,
+      "average_words": 86.0
+    },
+    {
+      "section": "Athletics & University Sports",
+      "count": 6,
+      "average_words": 40.2
+    },
+    {
+      "section": "Applied Mathematics and Computational Sciences with tracks in Computer Science and Mathematics",
+      "count": 6,
+      "average_words": 62.0
+    },
+    {
+      "section": "Behavioral Science with tracks in Psychology and Neuroscience",
+      "count": 6,
+      "average_words": 100.3
+    },
+    {
+      "section": "Global Cultural Studies / World Literature",
+      "count": 6,
+      "average_words": 13.2
+    },
+    {
+      "section": "Overview",
+      "count": 5,
+      "average_words": 115.6
+    },
+    {
+      "section": "Application Requirements",
+      "count": 5,
+      "average_words": 49.8
+    },
+    {
+      "section": "Scholarships and Financial Aid",
+      "count": 5,
+      "average_words": 45.0
+    },
+    {
+      "section": "Academic Recognition and Honors",
+      "count": 5,
+      "average_words": 84.0
+    },
+    {
+      "section": "Procedure for Resolution of Students' Academic Concerns",
+      "count": 5,
+      "average_words": 83.4
+    },
+    {
+      "section": "Academic Advising",
+      "count": 5,
+      "average_words": 83.4
+    },
+    {
+      "section": "Academic Resource Center",
+      "count": 5,
+      "average_words": 66.0
+    },
+    {
+      "section": "Requirements for All Majors",
+      "count": 5,
+      "average_words": 27.6
+    },
+    {
+      "section": "Computation and Design with tracks in Computer Science, Digital Media, and Social Policy",
+      "count": 5,
+      "average_words": 87.2
+    },
+    {
+      "section": "Computation and Design / Social Policy",
+      "count": 5,
+      "average_words": 13.6
+    },
+    {
+      "section": "Media and Arts / Creative Practice",
+      "count": 5,
+      "average_words": 17.0
+    },
+    {
+      "section": "Eligibility for Courses",
+      "count": 4,
+      "average_words": 88.0
+    },
+    {
+      "section": "Class Attendance and Missed Work",
+      "count": 4,
+      "average_words": 73.2
+    },
+    {
+      "section": "Incomplete Coursework and Excused Absence from Final Exam",
+      "count": 4,
+      "average_words": 126.5
+    },
+    {
+      "section": "Education Records",
+      "count": 4,
+      "average_words": 55.5
+    },
+    {
+      "section": "Campus Programs",
+      "count": 4,
+      "average_words": 67.2
+    },
+    {
+      "section": "Computation and Design / Digital Media",
+      "count": 4,
+      "average_words": 15.5
+    },
+    {
+      "section": "Cultures and Movements / Cultural Anthropology",
+      "count": 4,
+      "average_words": 14.2
+    },
+    {
+      "section": "Environmental Science / Public Policy",
+      "count": 4,
+      "average_words": 17.0
+    },
+    {
+      "section": "Institutions and Governance / Economics",
+      "count": 4,
+      "average_words": 17.8
+    },
+    {
+      "section": "Institutions and Governance / Political Science",
+      "count": 4,
+      "average_words": 13.5
+    },
+    {
+      "section": "Courses with Course Subject: Japanese (JAPANESE)",
+      "count": 4,
+      "average_words": 61.0
+    },
+    {
+      "section": "Courses with Course Subject: Neuroscience (NEUROSCI)",
+      "count": 4,
+      "average_words": 52.2
+    },
+    {
+      "section": "Courses with Course Subject: Third Language (TLANG)",
+      "count": 4,
+      "average_words": 143.5
+    },
+    {
+      "section": "Courses with Course Subject: US Studies (USTUD)",
+      "count": 4,
+      "average_words": 110.5
+    },
+    {
+      "section": "Part 1: General Information",
+      "count": 3,
+      "average_words": 63.7
+    },
+    {
+      "section": "Final Examinations",
+      "count": 3,
+      "average_words": 115.7
+    },
+    {
+      "section": "Residence Life",
+      "count": 3,
+      "average_words": 57.7
+    },
+    {
+      "section": "Accommodations",
+      "count": 3,
+      "average_words": 80.3
+    },
+    {
+      "section": "Student Conduct",
+      "count": 3,
+      "average_words": 60.7
+    },
+    {
+      "section": "Behavioral Science / Psychology",
+      "count": 3,
+      "average_words": 22.7
+    },
+    {
+      "section": "Cultures and Movements / Sociology",
+      "count": 3,
+      "average_words": 15.3
+    },
+    {
+      "section": "Environmental Science / Biology",
+      "count": 3,
+      "average_words": 13.7
+    },
+    {
+      "section": "Environmental Science / Chemistry",
+      "count": 3,
+      "average_words": 18.7
+    },
+    {
+      "section": "Ethics and Leadership with tracks in Philosophy, Public Policy, Religious Studies",
+      "count": 3,
+      "average_words": 167.7
+    },
+    {
+      "section": "Global China Studies with tracks in Chinese History, Economics, Philosophy, Political Science and Religious Studies",
+      "count": 3,
+      "average_words": 108.3
+    },
+    {
+      "section": "Global China Studies / Economics",
+      "count": 3,
+      "average_words": 12.3
+    },
+    {
+      "section": "Global Health with Tracks in Biology and Public Policy",
+      "count": 3,
+      "average_words": 146.0
+    },
+    {
+      "section": "Media and Arts with tracks in Art History and Creative Practice",
+      "count": 3,
+      "average_words": 108.3
+    },
+    {
+      "section": "Courses with Course Subject: Music (MUSIC)",
+      "count": 3,
+      "average_words": 91.0
+    },
+    {
+      "section": "Statement on Diversity and Inclusion",
+      "count": 2,
+      "average_words": 73.0
+    },
+    {
+      "section": "Principles of Selection",
+      "count": 2,
+      "average_words": 61.5
+    },
+    {
+      "section": "Tuition and Fees",
+      "count": 2,
+      "average_words": 67.5
+    },
+    {
+      "section": "Course Audit",
+      "count": 2,
+      "average_words": 103.0
+    },
+    {
+      "section": "Independent Studies",
+      "count": 2,
+      "average_words": 116.0
+    },
+    {
+      "section": "Declaration of Major",
+      "count": 2,
+      "average_words": 132.5
+    },
+    {
+      "section": "Exclusion of Disruptive Students from a Course",
+      "count": 2,
+      "average_words": 57.5
+    },
+    {
+      "section": "Religious Holidays",
+      "count": 2,
+      "average_words": 53.5
+    },
+    {
+      "section": "Seven Principles of Duke Kunshan University Academic Advising",
+      "count": 2,
+      "average_words": 81.0
+    },
+    {
+      "section": "Student Research Opportunities",
+      "count": 2,
+      "average_words": 83.0
+    },
+    {
+      "section": "Student Affairs",
+      "count": 2,
+      "average_words": 32.0
+    },
+    {
+      "section": "Student Affairs Conceptual Framework",
+      "count": 2,
+      "average_words": 86.5
+    },
+    {
+      "section": "Leadership Development",
+      "count": 2,
+      "average_words": 44.5
+    },
+    {
+      "section": "Blue Oasis Student Center",
+      "count": 2,
+      "average_words": 59.0
+    },
+    {
+      "section": "Counseling and Psychological Services (CAPS)",
+      "count": 2,
+      "average_words": 99.0
+    },
+    {
+      "section": "Campus Health Clinic",
+      "count": 2,
+      "average_words": 78.5
+    },
+    {
+      "section": "Chinese Student Services and Student Mobility",
+      "count": 2,
+      "average_words": 102.0
+    },
+    {
+      "section": "International Student Services",
+      "count": 2,
+      "average_words": 47.5
+    },
+    {
+      "section": "Cultures and Movements with tracks in Cultural Anthropology, Sociology and World History",
+      "count": 2,
+      "average_words": 149.5
+    },
+    {
+      "section": "Data Science",
+      "count": 2,
+      "average_words": 107.5
+    },
+    {
+      "section": "Environmental Science / Biogeochemistry",
+      "count": 2,
+      "average_words": 13.0
+    },
+    {
+      "section": "Ethics and Leadership / Public Policy",
+      "count": 2,
+      "average_words": 26.0
+    },
+    {
+      "section": "Global China Studies / Political Science",
+      "count": 2,
+      "average_words": 13.5
+    },
+    {
+      "section": "Global Cultural Studies with tracks in World History and World Literature",
+      "count": 2,
+      "average_words": 132.5
+    },
+    {
+      "section": "Global Health / Biology",
+      "count": 2,
+      "average_words": 17.0
+    },
+    {
+      "section": "Global Health / Public Policy",
+      "count": 2,
+      "average_words": 25.5
+    },
+    {
+      "section": "Institutions and Governance with tracks in Economics, Political Science, and Public Policy",
+      "count": 2,
+      "average_words": 139.0
+    },
+    {
+      "section": "Materials Science with tracks in Chemistry and Physics",
+      "count": 2,
+      "average_words": 87.0
+    },
+    {
+      "section": "Media and Arts / Art History",
+      "count": 2,
+      "average_words": 18.0
+    },
+    {
+      "section": "Political Economy with tracks in Economics, Political Science, and Public Policy",
+      "count": 2,
+      "average_words": 129.5
+    },
+    {
+      "section": "Political Economy / Public Policy",
+      "count": 2,
+      "average_words": 28.0
+    },
+    {
+      "section": "US Studies with tracks in American History, American Literature, Political Science, and Public Policy",
+      "count": 2,
+      "average_words": 127.0
+    },
+    {
+      "section": "US Studies / American History",
+      "count": 2,
+      "average_words": 21.0
+    },
+    {
+      "section": "Courses with Course Subject: Arts and Humanities (ARHU)",
+      "count": 2,
+      "average_words": 83.0
+    },
+    {
+      "section": "Courses with Course Subject: English (ENGLISH)",
+      "count": 2,
+      "average_words": 16.0
+    },
+    {
+      "section": "Courses with Course Subject: French (FRENCH)",
+      "count": 2,
+      "average_words": 66.5
+    },
+    {
+      "section": "Courses with Course Subject: German (GERMAN)",
+      "count": 2,
+      "average_words": 57.5
+    },
+    {
+      "section": "Courses with Course Subject: Integrated Science (INTGSCI)",
+      "count": 2,
+      "average_words": 99.0
+    },
+    {
+      "section": "Courses with Course Subject: Italian (ITALIAN)",
+      "count": 2,
+      "average_words": 43.0
+    },
+    {
+      "section": "Courses with Course Subject: Military Science (MILITSCI)",
+      "count": 2,
+      "average_words": 30.5
+    },
+    {
+      "section": "Mission Statement",
+      "count": 1,
+      "average_words": 141.0
+    },
+    {
+      "section": "Duke Kunshan University Community Standard",
+      "count": 1,
+      "average_words": 136.0
+    },
+    {
+      "section": "A 21st Century Curriculum",
+      "count": 1,
+      "average_words": 119.0
+    },
+    {
+      "section": "A Liberal Arts College Experience",
+      "count": 1,
+      "average_words": 153.0
+    },
+    {
+      "section": "Dual Degrees",
+      "count": 1,
+      "average_words": 92.0
+    },
+    {
+      "section": "Notification and Responses",
+      "count": 1,
+      "average_words": 13.0
+    },
+    {
+      "section": "Time Limit for Completing Undergraduate Degree",
+      "count": 1,
+      "average_words": 73.0
+    },
+    {
+      "section": "Two-Credit Writing Courses",
+      "count": 1,
+      "average_words": 120.0
+    },
+    {
+      "section": "Submission of Term Paper",
+      "count": 1,
+      "average_words": 41.0
+    },
+    {
+      "section": "Class Scheduling",
+      "count": 1,
+      "average_words": 46.0
+    },
+    {
+      "section": "Notification of Intention to Graduate",
+      "count": 1,
+      "average_words": 116.0
+    },
+    {
+      "section": "Graduation and Commencement",
+      "count": 1,
+      "average_words": 84.0
+    },
+    {
+      "section": "The Provision of Academic Information to Parents and Guardians",
+      "count": 1,
+      "average_words": 68.0
+    },
+    {
+      "section": "Compliance with Academic Regulations",
+      "count": 1,
+      "average_words": 79.0
+    },
+    {
+      "section": "Part 7: Academic Advising and Support",
+      "count": 1,
+      "average_words": 83.0
+    },
+    {
+      "section": "Campus Engagement",
+      "count": 1,
+      "average_words": 53.0
+    },
+    {
+      "section": "Arts and Culture",
+      "count": 1,
+      "average_words": 113.0
+    },
+    {
+      "section": "Student Clubs and Organizations",
+      "count": 1,
+      "average_words": 115.0
+    },
+    {
+      "section": "Host Family Program",
+      "count": 1,
+      "average_words": 45.0
+    },
+    {
+      "section": "Applied Mathematics and Computational Sciences/Computer Science",
+      "count": 1,
+      "average_words": 33.0
+    },
+    {
+      "section": "Applied Mathematics and Computational Sciences/Mathematics (for the Classes of 2022- 2024)",
+      "count": 1,
+      "average_words": 47.0
+    },
+    {
+      "section": "Ethics and Leadership / Philosophy",
+      "count": 1,
+      "average_words": 16.0
+    },
+    {
+      "section": "Global China Studies / Philosophy",
+      "count": 1,
+      "average_words": 16.0
+    },
+    {
+      "section": "Global Cultural Studies / World History",
+      "count": 1,
+      "average_words": 13.0
+    },
+    {
+      "section": "Institutions and Governance / Public Policy",
+      "count": 1,
+      "average_words": 40.0
+    },
+    {
+      "section": "Materials Science / Chemistry",
+      "count": 1,
+      "average_words": 39.0
+    },
+    {
+      "section": "Political Economy / Political Science",
+      "count": 1,
+      "average_words": 12.0
+    },
+    {
+      "section": "US Studies / American Literature",
+      "count": 1,
+      "average_words": 14.0
+    },
+    {
+      "section": "US Studies / Political Science",
+      "count": 1,
+      "average_words": 15.0
+    },
+    {
+      "section": "Course Descriptions",
+      "count": 1,
+      "average_words": 31.0
+    },
+    {
+      "section": "Courses with Course Subject: Arts (ARTS)",
+      "count": 1,
+      "average_words": 15.0
+    },
+    {
+      "section": "Courses with Course Subject: Computer Design (COMPDSGN)",
+      "count": 1,
+      "average_words": 116.0
+    },
+    {
+      "section": "Courses with Course Subject: Global Challenges (GLOCHALL)",
+      "count": 1,
+      "average_words": 108.0
+    },
+    {
+      "section": "Courses with Course Subject: Independent Study (INDSTU)",
+      "count": 1,
+      "average_words": 40.0
+    },
+    {
+      "section": "Courses with Course Subject: Institutions and Governance (INSTGOV)",
+      "count": 1,
+      "average_words": 116.0
+    },
+    {
+      "section": "Courses with Course Subject: Latin (LATIN)",
+      "count": 1,
+      "average_words": 14.0
+    },
+    {
+      "section": "Courses with Course Subject: Research Independent Study (RINDSTU)",
+      "count": 1,
+      "average_words": 38.0
+    },
+    {
+      "section": "Courses with Course Subject: Spanish (SPANISH)",
+      "count": 1,
+      "average_words": 14.0
+    },
+    {
+      "section": "Part 12: Useful Contacts",
+      "count": 1,
+      "average_words": 122.0
+    }
+  ],
+  "cluster_counts": [
+    {
+      "cluster": 0,
+      "count": 218
+    },
+    {
+      "cluster": 1,
+      "count": 183
+    },
+    {
+      "cluster": 2,
+      "count": 130
+    },
+    {
+      "cluster": 3,
+      "count": 116
+    },
+    {
+      "cluster": 4,
+      "count": 136
+    },
+    {
+      "cluster": 5,
+      "count": 190
+    },
+    {
+      "cluster": 6,
+      "count": 110
+    },
+    {
+      "cluster": 7,
+      "count": 252
+    }
+  ]
+}

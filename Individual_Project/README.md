@@ -21,10 +21,11 @@ The page includes all required components from the Canvas instructions:
 2. Intended message, audience, and viewer tasks.
 3. Two strengths and three evidence-based weaknesses.
 4. A working D3 redesign using external JSON data.
-5. Three redesign decisions and an original-versus-redesign comparison.
-6. Data sources, references, limitations, and source attribution.
+5. Four redesign decisions and an original-versus-redesign comparison.
+6. Screenshots of both the original and redesigned visualizations.
+7. Data sources, references, limitations, and source attribution.
 
-The four Part 5 explanations are each 150–200 words and together form a report-length design rationale.
+The four Part 5 explanations are each 150–200 words and together form a 725-word report-length design rationale.
 
 ## Redesign encodings
 
@@ -32,7 +33,7 @@ The four Part 5 explanations are each 150–200 words and together form a report
 - **Vertical position:** broad organization swimlane.
 - **Color:** broad organization group.
 - **Point size:** number of direct descendants, calculated as the node's outgoing-link count in `graph.json`.
-- **Links:** hidden by default and shown only for the selected node.
+- **Links:** hidden by default and animated as directed arrows only for the selected node.
 
 The size legend uses reference values from the data. The maximum is 20 direct descendants. Size does not represent parameter count, compute, popularity, or benchmark performance.
 
@@ -41,7 +42,9 @@ The size legend uses reference values from the data. The maximum is 20 direct de
 - Search by model or organization.
 - Filter by organization group.
 - Show all model labels.
-- Select a point to display its description, source, predecessors, descendants, and direct-descendant count.
+- Select a point to progressively draw predecessor-to-descendant arrows, pulse direct descendants, and fade unrelated nodes.
+- Read the selected lineage across publication time and developer lanes.
+- Display the selected model's description, source, predecessors, descendants, and direct-descendant count.
 - Select a connected model in the detail panel to continue exploring.
 
 ## Run locally

@@ -3,26 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 8</title>
+    <title>Lab 8 - Bulletin Text Visualization</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="lab8.css?v=6">
 </head>
 <body>
-    <h1>Lab 8</h1>
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
+
     <nav class="lab-nav" aria-label="Lab navigation">
-        <a href="../lab1/index.html">Lab 1</a>
-        <a href="../lab2/index.html">Lab 2</a>
-        <a href="../lab3/index.html">Lab 3</a>
-        <a href="../lab4/index.html">Lab 4</a>
-        <a href="../lab5/index.html">Lab 5</a>
-        <a href="../lab6/index.html">Lab 6</a>
+        <a href="../lab1/index.html">Lab 1</a><a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html">Lab 3</a><a href="../lab4/index.html">Lab 4</a>
+        <a href="../lab5/index.html">Lab 5</a><a href="../lab6/index.html">Lab 6</a>
         <a href="../lab7/index.html">Lab 7</a>
         <a href="../lab8/index.html" aria-current="page">Lab 8</a>
-        <a href="../lab9/index.html">Lab 9</a>
-        <a href="../lab10/index.html">Lab 10</a>
+        <a href="../lab9/index.html">Lab 9</a><a href="../lab10/index.html">Lab 10</a>
         <a href="../Individual_Project/index.html">Individual Project: Critique and Redesign</a>
         <a href="../Final_Project/index.html">Final Project</a>
     </nav>
-    <p>Lab 8 will be added here.</p>
+
+    <main>
+        <h2>Interactive Exploration of the DKU Undergraduate Bulletin</h2>
+
+        <section class="card" aria-labelledby="corpus-heading">
+            <h3 id="corpus-heading">1. Bulletin and Corpus Description</h3>
+            <p>
+                <strong>Bulletin of Duke Kunshan University Undergraduate Instruction</strong> (2021-2022).
+                Source: <a href="../data/V2021-22_DKU_UG_Bulletin.pdf">official bulletin PDF</a>;
+                accessed September 23, 2026.
+            </p>
+            <p>
+                One paragraph or short policy/course block is one passage. The preparation script removes the
+                table of contents, page numbers, short fragments, and duplicate text while preserving chapter,
+                section, subsection, page, and passage text. The PDF produced 4,550 raw passage blocks; cleaning
+                retained 1,335 unique passages across 183 formal sections, with an average length of 68.0 words.
+            </p>
+        </section>
+
+        <section class="card" aria-labelledby="overview-heading">
+            <h3 id="overview-heading">2. Corpus Overview</h3>
+            <div class="overview-grid">
+                <div>
+                    <h4>Top TF-IDF Terms</h4>
+                    <div id="term-chart" class="chart-container"></div>
+                </div>
+                <div>
+                    <h4>Passages by Section (Top 15)</h4>
+                    <div id="section-chart" class="chart-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="methods-heading">
+            <h3 id="methods-heading">3. Semantic Analysis Method</h3>
+            <p>
+                The preparation script embeds cleaned passages with <code>all-MiniLM-L6-v2</code>, projects the
+                normalized vectors with UMAP (<code>n_neighbors=15</code>, <code>min_dist=0.15</code>, cosine
+                distance, seed 401), and clusters the original embeddings with eight-cluster K-means (seed 401).
+                Nearest neighbors use cosine similarity in the original embedding space, not 2D distance.
+            </p>
+            <p>Representative passages and characteristic TF-IDF terms support these topic names:</p>
+            <ol class="topic-list">
+                <li>Culture, Society, and the Humanities</li>
+                <li>Language, Communication, and Learning</li>
+                <li>DKU Degrees and Credit Transfer</li>
+                <li>Computing, Mathematics, and Data</li>
+                <li>China and Asian History</li>
+                <li>Policy, Economics, and Global Affairs</li>
+                <li>Natural and Molecular Sciences</li>
+                <li>Academic Rules, Grading, and Progress</li>
+            </ol>
+        </section>
+
+        <section class="card" aria-labelledby="map-heading">
+            <div class="section-heading">
+                <div>
+                    <h3 id="map-heading">4. Semantic Embedding Map</h3>
+                    <p class="interaction-hint">
+                        Position shows UMAP proximity, color shows topic, and point size shows passage length.
+                        Select a point for details and its five nearest semantic neighbors.
+                    </p>
+                </div>
+                <button id="reset" type="button">Reset</button>
+            </div>
+
+            <div class="controls">
+                <label>Search
+                    <input id="search" type="search" placeholder="credit, graduation, registration...">
+                </label>
+                <label>Section
+                    <select id="section-filter"><option value="">All sections</option></select>
+                </label>
+                <label>Topic
+                    <select id="topic-filter">
+                        <option value="">All topics</option>
+                        <option value="0">Culture, Society, and the Humanities</option>
+                        <option value="1">Language, Communication, and Learning</option>
+                        <option value="2">DKU Degrees and Credit Transfer</option>
+                        <option value="3">Computing, Mathematics, and Data</option>
+                        <option value="4">China and Asian History</option>
+                        <option value="5">Policy, Economics, and Global Affairs</option>
+                        <option value="6">Natural and Molecular Sciences</option>
+                        <option value="7">Academic Rules, Grading, and Progress</option>
+                    </select>
+                </label>
+            </div>
+
+            <div id="topic-legend" class="topic-legend" aria-label="Semantic topic legend">
+                <span class="legend-item" data-cluster="0"><i class="legend-swatch"></i>Culture, Society, and the Humanities</span>
+                <span class="legend-item" data-cluster="1"><i class="legend-swatch"></i>Language, Communication, and Learning</span>
+                <span class="legend-item" data-cluster="2"><i class="legend-swatch"></i>DKU Degrees and Credit Transfer</span>
+                <span class="legend-item" data-cluster="3"><i class="legend-swatch"></i>Computing, Mathematics, and Data</span>
+                <span class="legend-item" data-cluster="4"><i class="legend-swatch"></i>China and Asian History</span>
+                <span class="legend-item" data-cluster="5"><i class="legend-swatch"></i>Policy, Economics, and Global Affairs</span>
+                <span class="legend-item" data-cluster="6"><i class="legend-swatch"></i>Natural and Molecular Sciences</span>
+                <span class="legend-item" data-cluster="7"><i class="legend-swatch"></i>Academic Rules, Grading, and Progress</span>
+            </div>
+            <div class="map-layout">
+                <div id="semantic-map" class="chart-container map-container"></div>
+                <aside id="detail-panel" class="detail-panel" aria-live="polite">
+                    <h4>Passage Details</h4>
+                    <p>Select a point to inspect its structure, full text, and nearest neighbors.</p>
+                </aside>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="matrix-heading">
+            <h3 id="matrix-heading">5. Topic x Bulletin Section Matrix</h3>
+            <p class="interaction-hint">
+                Darker cells contain more passages. Select a cell to filter the semantic map; select it again or
+                use Reset to clear it.
+            </p>
+            <div id="matrix" class="chart-container matrix-container"></div>
+        </section>
+
+        <section class="card" aria-labelledby="findings-heading">
+            <h3 id="findings-heading">6. Semantic Findings</h3>
+            <p>Answer at least four questions using specific passages or patterns visible above.</p>
+            <ol class="findings-list">
+                <li>
+                    <strong>What are the major semantic topics?</strong>
+                    <p>
+                        In fact, all topics appear multiple times. Therefore, the 'major' is in terms of the relative frequency. 
+                        TF-IDF terms and representative passages support eight major topics: Culture, Society, and
+                        the Humanities; Language, Communication, and Learning; DKU Degrees and Credit Transfer;
+                        Computing, Mathematics, and Data; China and Asian History; Policy, Economics, and Global
+                        Affairs; Natural and Molecular Sciences; and Academic Rules, Grading, and Progress. The
+                        largest clusters are Academic Rules, Grading, and Progress (252 passages), Culture, Society,
+                        and the Humanities (218), and Policy, Economics, and Global Affairs (190).
+                    </p>
+                </li>
+                <li>
+                    <strong>Which topics appear across multiple formal sections?</strong>
+                    <p>
+                        Every topic crosses formal section boundaries. This makes the response towards the analysis also 
+                        based on relative frequency. Academic Rules, Grading, and Progress is the
+                        most widespread, appearing in 72 of 183 sections, followed by Language, Communication, and
+                        Learning in 60, DKU Degrees and Credit Transfer in 55, and Policy, Economics, and Global
+                        Affairs in 48. For example, the degree-and-credit topic occurs in Office of Global Education
+                        and Study Away (13 passages), Degree Requirements (12), Entrance Credit and Placement (10),
+                        and Transfer of Work Taken Elsewhere (10).
+                    </p>
+                </li>
+                <li>
+                    <strong>Which formal sections contain the most semantically diverse content?</strong>
+                    <p>
+                        The maximum observed diversity from the resulting data is 5/8 topics. Six sections reach this level:
+                        Social Science, Philosophy, Political Science, History, Media and Arts, and Biology. Social
+                        Science is the most balanced of these, distributing its 13 passages across culture (2),
+                        language and learning (2), computing and data (3), China and Asian history (1), and policy
+                        and global affairs (5). History is larger but less balanced: 40 of its 73 passages concern
+                        China and Asian history and 26 concern culture and the humanities. Thus even it satisfies the Requirements
+                        to a certain degree, it is excluded from the selection.
+                    </p>
+                </li>
+                <li>
+                    <strong>Which passages from different sections are semantically similar?</strong>
+                    <p>
+                        Passage p0757 in Economics (page 262) and p1011 in Mathematics (page 325) give the same
+                        mathematical-finance course description and have cosine similarity 1.000. Passage p0898 in
+                        History (page 298) and p1046 in Media and Arts (page 333) describe the same Chinese art survey
+                        and have similarity 0.999. These pairs show that cross-listed or repeated course content can
+                        occupy different formal sections while remaining almost identical in semantic space. Nevertheless, 
+                        as semantic analysis is conducted on a pretrained model, the actual precise semantic similarity 
+                        would require experiment conducted on a fine-tuned task specific language model.
+                    </p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="card" aria-labelledby="design-heading">
+            <h3 id="design-heading">7. Design Description and Findings (200-300 words)</h3>
+            <p>
+                In this lab each paragraph or short policy block in the 2021-2022 DKU bulletin is treated as one passage. After
+                removing page numbers, table-of-contents artifacts, short fragments, and duplicate text, the processed file
+                contained 1,335 passages from 183 formal sections. Each passage was encoded with the
+                all-MiniLM-L6-v2 sentence-transformer model and normalized. The original embeddings is clustered with
+                eight-cluster K-means (seed 401 for STATS401). The topic names were based on characteristic TF-IDF terms and
+                representative passages from each cluster. UMAP projected the embeddings into two dimensions using
+                15 neighbors, a minimum distance of 0.15 and cosine distance.
+            </p>
+            <p>
+                In the semantic map, position represents embedding similarity, color represents topic, and point
+                size represents passage length. Search, section and topic filters, zoom, passage details, and five
+                nearest neighbors support focused exploration. The matrix places formal sections in rows and topics
+                in columns, with darker cells indicating more passages. Selecting a matrix cell filters the map, and
+                selecting a point identifies its corresponding matrix cell, connecting formal and semantic
+                structure.
+            </p>
+            <p>
+                The analysis found that academic rules, language and learning, and degree and credit content occur
+                across the widest range of formal sections. Social Science, Philosophy, Political Science, History,
+                Media and Arts, and Biology are the most semantically diverse sections, each containing five topics.
+                Nearest-neighbor pairs also reveal repeated or cross-listed course descriptions across departmental
+                sections, including nearly identical mathematical-finance passages in Economics and Mathematics.
+            </p>
+        </section>
+
+        <p id="load-status" class="load-status" role="status" aria-live="polite"></p>
+    </main>
+
+    <div id="tooltip" class="tooltip" role="status"></div>
     <a href="../index.html">Back to home</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab8.js?v=4"></script>
 </body>
 </html>

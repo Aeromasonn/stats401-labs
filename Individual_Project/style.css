@@ -80,7 +80,13 @@ section {
     margin: 20px 0;
 }
 
-.original-figure img {
+.redesign-figure {
+    width: 100%;
+    margin: 26px 0 4px;
+}
+
+.original-figure img,
+.redesign-figure img {
     display: block;
     width: 100%;
     height: auto;
@@ -273,12 +279,15 @@ button:focus-visible {
 .lineage-link {
     fill: none;
     stroke-width: 1.6;
-    opacity: 0;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     pointer-events: none;
+    transition: opacity 220ms ease;
 }
 
 .model-node {
     cursor: pointer;
+    transition: opacity 260ms ease;
 }
 
 .model-node circle {
@@ -294,6 +303,31 @@ button:focus-visible {
 
 .model-node.selected .halo {
     opacity: 1;
+}
+
+.model-node.lineage-related circle:not(.halo) {
+    filter: drop-shadow(0 2px 3px rgba(24, 50, 74, 0.26));
+}
+
+.model-node.direct-descendant .halo {
+    animation: descendant-pulse 1.25s ease-out var(--pulse-delay, 0ms) 2;
+}
+
+@keyframes descendant-pulse {
+    0% {
+        opacity: 0;
+        stroke-width: 2;
+    }
+
+    35% {
+        opacity: 0.95;
+        stroke-width: 5;
+    }
+
+    100% {
+        opacity: 0;
+        stroke-width: 10;
+    }
 }
 
 .node-label {
@@ -370,6 +404,13 @@ button:focus-visible {
 .limitation {
     color: #666;
     font-size: 13px;
+}
+
+.interaction-note {
+    margin: 8px 0 2px;
+    color: #405d73;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .tooltip {
@@ -580,7 +621,15 @@ main > section > h2 {
     background: var(--soft-blue);
 }
 
-.original-figure img {
+.redesign-figure {
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--soft-blue);
+}
+
+.original-figure img,
+.redesign-figure img {
     border: 0;
     border-radius: 5px;
     box-shadow: 0 4px 14px rgba(24, 50, 74, 0.15);
@@ -736,5 +785,68 @@ footer {
 
     .design-decision {
         padding: 17px;
+    }
+}
+
+/* Deterministic chart-only layout used to produce the report screenshot. */
+.capture-redesign body {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff !important;
+}
+
+.capture-redesign body > header,
+.capture-redesign .lab-nav,
+.capture-redesign main > h1,
+.capture-redesign main > .lead,
+.capture-redesign .project-nav,
+.capture-redesign main > section:not(#redesign),
+.capture-redesign footer,
+.capture-redesign #redesign > h2,
+.capture-redesign #redesign > p:not(.status-line),
+.capture-redesign #redesign > .controls,
+.capture-redesign #redesign > .encoding-key {
+    display: none;
+}
+
+.capture-redesign main > #redesign {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.capture-redesign .viz-layout {
+    display: block;
+}
+
+.capture-redesign .chart-scroller {
+    width: 100%;
+    overflow: hidden;
+}
+
+.capture-redesign .detail-panel {
+    display: none;
+}
+
+.capture-redesign #timeline {
+    min-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .lineage-link,
+    .model-node,
+    .model-node circle {
+        transition: none;
+    }
+
+    .model-node.direct-descendant .halo {
+        animation: none;
+        opacity: 0.8;
     }
 }
