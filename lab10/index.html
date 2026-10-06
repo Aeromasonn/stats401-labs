@@ -1,13 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 10</title>
+
+    <title>Lab 10 - Voice Interaction</title>
+
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="lab10.css?v=3">
 </head>
+
 <body>
-    <h1>Lab 10</h1>
+    <header>
+        <h1>STATS 401</h1>
+        <p>Data Acquisition and Visualization</p>
+    </header>
+
     <nav class="lab-nav" aria-label="Lab navigation">
         <a href="../lab1/index.html">Lab 1</a>
         <a href="../lab2/index.html">Lab 2</a>
@@ -22,7 +32,146 @@
         <a href="../Individual_Project/index.html">Individual Project: Critique and Redesign</a>
         <a href="../Final_Project/index.html">Final Project</a>
     </nav>
-    <p>Lab 10 will be added here.</p>
+
+    <main>
+        <h2>Lab 10: Voice Interaction with the Lab 5 Network</h2>
+
+        <p>
+            This page extends the Lab 5 urban transit network with voice
+            interaction. Spoken commands can filter or highlight the network
+            and reset the visualization.
+        </p>
+
+        <section class="control-card" aria-labelledby="voice-heading">
+            <h3 id="voice-heading">1. Voice Control</h3>
+
+            <p>
+                The microphone starts only after pressing the button. The page
+                listens for one command and then stops.
+            </p>
+
+            <button id="voice-button" type="button">Start Voice Control</button>
+
+            <div class="voice-feedback" aria-live="polite">
+                <p><strong>Status:</strong> <span id="voice-status">Voice control inactive.</span></p>
+                <p><strong>Heard:</strong> <span id="voice-transcript">Nothing yet.</span></p>
+                <p><strong>Action:</strong> <span id="voice-action">No action yet.</span></p>
+            </div>
+
+            <p class="command-examples">
+                Try: <code>show central</code>, <code>show terminal stations</code>,
+                <code>highlight station 23</code>, or <code>reset</code>.
+            </p>
+        </section>
+
+        <section class="control-card" aria-labelledby="fallback-heading">
+            <h3 id="fallback-heading">2. Conventional Fallback Controls</h3>
+
+            <p>
+                These controls perform the same tasks when voice recognition is
+                unavailable or inaccurate.
+            </p>
+
+            <div class="fallback-controls">
+                <label>
+                    District
+                    <select id="district-filter">
+                        <option value="All">All districts</option>
+                    </select>
+                </label>
+
+                <label>
+                    Station type
+                    <select id="type-filter">
+                        <option value="All">All station types</option>
+                    </select>
+                </label>
+
+                <label>
+                    Highlight station
+                    <select id="station-select">
+                        <option value="">No station selected</option>
+                    </select>
+                </label>
+
+                <button id="reset-button" type="button">Reset visualization</button>
+            </div>
+
+            <p id="filter-summary" class="filter-summary" aria-live="polite">
+                Loading the Lab 5 data...
+            </p>
+        </section>
+
+        <section class="visualization-card" aria-labelledby="network-heading">
+            <h3 id="network-heading">3. Lab 5 Urban Transit Network</h3>
+
+            <p>
+                Node size shows daily passengers, node color shows district,
+                node shape shows station type, line width shows travel time, and
+                line color shows route type. Stations can also be dragged,
+                hovered, clicked, or selected with the keyboard.
+            </p>
+
+            <div id="network" class="chart-container"></div>
+
+            <div class="legend-layout" aria-label="Network encoding guide">
+                <div>
+                    <h4>District color</h4>
+                    <div id="district-legend" class="legend-list"></div>
+                </div>
+                <div>
+                    <h4>Station shape</h4>
+                    <div id="station-legend" class="legend-list"></div>
+                </div>
+                <div>
+                    <h4>Route color</h4>
+                    <div id="route-legend" class="legend-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="details-card" aria-labelledby="details-heading">
+            <h3 id="details-heading">4. Selected Station Details</h3>
+            <div id="selection-details" aria-live="polite">
+                <p>Highlight a station by voice, dropdown, mouse, or keyboard.</p>
+            </div>
+        </section>
+
+        <section aria-labelledby="reflection-heading">
+            <h3 id="reflection-heading">5. Design Reflection</h3>
+
+            <div class="reflection-text">
+                <p>
+                    Lab 5's node-link graph was extended with voice interaction.
+                    The task now supports real-time manipulation of the
+                    visualization through spoken guidance. Users can filter the
+                    graph by district or station type, highlight an individual
+                    station, and reset the view without touching the screen or
+                    using a mouse. This interaction is especially appropriate
+                    when the visualization is shown on a large display or larger
+                    device because users can control the graph from a short
+                    distance while still receiving immediate feedback about what
+                    the system heard and which action it applied. This can make
+                    exploration more efficient and intuitive in presentation
+                    settings. One limitation is that the voice recognition module
+                    is not always active. The user must return to the top of the
+                    page and press the voice-control button before each command,
+                    which requires scrolling back and forth when examining lower
+                    parts of the page. A persistent or floating activation control
+                    would work better, particularly on larger displays.
+                </p>
+            </div>
+        </section>
+
+        <p id="load-status" class="load-status" role="status"></p>
+    </main>
+
+    <div id="tooltip" class="tooltip" role="tooltip"></div>
+
     <a href="../index.html">Back to home</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="lab10.js?v=4"></script>
 </body>
+
 </html>
